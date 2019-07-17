@@ -45,7 +45,10 @@ RUN apk update && \
 WORKDIR /www
 # VOLUME ["/www"]
 
+# 端口号配置
 EXPOSE 9000
+
+# 容器命令执行
 CMD ["php-fpm"]
 
 # FROM alpine:3.9
@@ -61,8 +64,11 @@ CMD ["php-fpm"]
 
 # CMD echo "This is a test."
 # docker stop $(docker ps -aq)
+# docker rm $(docker ps -aq)
 # docker rm $(docker ps -a | grep "Exited" | awk '{print $1 }')
 # docker rmi $(docker images | grep "none" | awk '{print $3}')
-# docker rm $(docker ps -aq)
 # docker run -itd --name myphp1 php1
 # docker attach myphp1
+
+# docker build . -t hh1
+# docker run --rm -p 9000:9000  -v -itd --name haha1  hh1
