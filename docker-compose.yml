@@ -20,7 +20,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/cert:/etc/nginx/cert
-      - ./nginx/html:/usr/share/www:ro
+      - ./nginx/html:/usr/share/www
       - ./nginx/log:/var/log/nginx
     ports:
       - "80:80"
