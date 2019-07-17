@@ -1,7 +1,16 @@
 version: "3.7"
 services:
+  php:
+    build: ./php
+    image: php:5.6.31
+    restart: always
+    ports:
+      - "9000:9000"
+    container_name: my_php
   nginx:
     image: nginx:stable-alpine
+    depends_on:
+      - "php"
     restart: always
     container_name: my_nginx
     volumes:
@@ -20,4 +29,3 @@ services:
       - ./redis/redis.conf:/etc/redis/redis.conf
     ports:
       - 6379:6379
-    
