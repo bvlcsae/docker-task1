@@ -107,12 +107,13 @@ RUN set -eux; \
 		--enable-ftp \
 # --enable-mysqlnd is included here because it's harder to compile after the fact than extensions are (since it's a plugin for several extensions, not an extension in itself)
 		--enable-mysqlnd \
+        --with-sodium=shared \
 		--with-curl \
 		--with-libedit \
 		--with-zlib \
 		${PHP_EXTRA_CONFIGURE_ARGS:-} \
 	; \
-	make -j "$(nproc)"; \
+	make -j "6"; \
 	find -type f -name '*.a' -delete; \
 	make install; \
 	find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; \
