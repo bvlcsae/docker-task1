@@ -66,7 +66,7 @@ ENV PHP_VERSION 7.3.7
 ENV PHP_URL="https://www.php.net/get/php-7.3.7.tar.xz/from/this/mirror" PHP_ASC_URL="https://www.php.net/get/php-7.3.7.tar.xz.asc/from/this/mirror"
 ENV PHP_SHA256="ba067200ba649956b3a92ec8b71a6ed8ce8a099921212443c1bcf3260a29274c" PHP_MD5=""
 
-COPY ./php-7.3.7.tar.xz /usr/src/php.tar.xz
+COPY ./php-5.6.27.tar.xz /usr/src/php.tar.xz
 
 RUN set -eux; \
 	\
@@ -103,32 +103,13 @@ RUN set -eux; \
 		--with-config-file-path="$PHP_INI_DIR" \
 		--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
 		\
-# make sure invalid --configure-flags are fatal errors intead of just warnings
-		--enable-option-checking=fatal \
-		\
-# https://github.com/docker-library/php/issues/439
-		--with-mhash \
-		\
 # --enable-ftp is included here because ftp_ssl_connect() needs ftp to be compiled statically (see https://github.com/docker-library/php/issues/236)
 		--enable-ftp \
-# --enable-mbstring is included here because otherwise there's no way to get pecl to use it properly (see https://github.com/docker-library/php/issues/195)
-		--enable-mbstring \
 # --enable-mysqlnd is included here because it's harder to compile after the fact than extensions are (since it's a plugin for several extensions, not an extension in itself)
 		--enable-mysqlnd \
-# https://wiki.php.net/rfc/argon2_password_hash (7.2+)
-		--with-password-argon2 \
-# https://wiki.php.net/rfc/libsodium
-		--with-sodium=shared \
-		\
 		--with-curl \
 		--with-libedit \
-		--with-openssl \
 		--with-zlib \
-		\
-# bundled pcre does not support JIT on s390x
-# https://manpages.debian.org/stretch/libpcre3-dev/pcrejit.3.en.html#AVAILABILITY_OF_JIT_SUPPORT
-		$(test "$gnuArch" = 's390x-linux-gnu' && echo '--without-pcre-jit') \
-		\
 		${PHP_EXTRA_CONFIGURE_ARGS:-} \
 	; \
 	make -j "$(nproc)"; \
