@@ -113,7 +113,7 @@ RUN set -eux; \
 		--with-zlib \
 		${PHP_EXTRA_CONFIGURE_ARGS:-} \
 	; \
-	make -j "6"; \
+	make -j "$(nproc)"; \
 	find -type f -name '*.a' -delete; \
 	make install; \
 	find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; \
