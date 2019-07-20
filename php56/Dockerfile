@@ -42,9 +42,6 @@ RUN apk update && \
     # apk del tzdata && \
     rm -rf /var/cache/apk/*
 
-WORKDIR /www
-# VOLUME ["/www"]
-
 # 端口号配置
 EXPOSE 9000
 
@@ -63,6 +60,7 @@ CMD ["php-fpm"]
 # WORKDIR /usr/local/php-5.6.27
 
 # CMD echo "This is a test."
+# docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
 # docker stop $(docker ps -aq)
 # docker rm $(docker ps -aq)
 # docker rm $(docker ps -a | grep "Exited" | awk '{print $1 }')
