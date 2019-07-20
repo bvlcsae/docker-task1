@@ -2,18 +2,20 @@ version: "3.7"
 services:
   php56:
     build: ./php56
-    image: php56:test
+    image: php:5.6.31
+    ports:
+      - 9000:9000
     volumes:
      - ./php56/config/php.ini:/etc/php/php.ini
      - ./php56/config/php-fpm.conf:/etc/php/php-fpm.conf
      - ./php56/config/conf.d:/etc/php/conf.d
+    privileged: true
     restart: always
     container_name: my_php
+    networks:
+      - default
   nginx:
-    # build: ./nginx
     image: nginx:stable-alpine
-    depends_on:
-      - php56
     links:
       - php56:php-fpm
     restart: always
@@ -24,8 +26,10 @@ services:
       - ./nginx/html:/usr/share/nginx/html
       - ./nginx/log:/var/log/nginx
     ports:
-      - "80:80"
+      - 80:80
     container_name: my_nginx
+    networks:
+      - default
   redis:
     image: redis:5.0
     restart: always
@@ -35,3 +39,7 @@ services:
     ports:
       - 6379:6379
     container_name: my_redis
+    networks:
+      - default
+networks:
+  default:
