@@ -8,23 +8,23 @@ services:
       - ./config/php56/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./wwwroot:/usr/share/nginx/html
     restart: always
-    container_name: my_php
+    container_name: my_php56
     networks:
       - default
-  # php72:
-  #   image: php:7.2-fpm
-  #   volumes:
-  #     - ./config/php72/php-fpm.conf:/usr/local/etc/php-fpm.conf
-  #     - ./config/php72/php-fpm.d:/usr/local/etc/php-fpm.d
-  #     - ./wwwroot:/usr/share/nginx/html
-  #   restart: always
-  #   container_name: my_php
-  #   networks:
-  #     - default
+  php72:
+    image: php:7.2-fpm
+    volumes:
+      - ./config/php72/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./config/php72/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./wwwroot:/usr/share/nginx/html
+    restart: always
+    container_name: my_php72
+    networks:
+      - default
   nginx:
     image: nginx:1.16.0-alpine
     links:
-      # - php72:php-fpm72
+      - php72:php-fpm72
       - php56:php-fpm56
     restart: always
     volumes:
