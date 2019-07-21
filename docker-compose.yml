@@ -1,5 +1,6 @@
 version: "3.7"
 services:
+  # php5.6.27
   php56:
     image: bvlcsae/php:5.6-fpm
     build: ./build/php56
@@ -11,8 +12,10 @@ services:
     container_name: my_php56
     networks:
       - default
+  # php7.2.0
   php72:
-    image: php:7.2-fpm
+    image: bvlcsae/php:7.2-fpm
+    build: ./build/php72
     volumes:
       - ./config/php72/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./config/php72/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -49,6 +52,6 @@ services:
     container_name: my_redis
     networks:
       - default
-  
+
 networks:
   default:

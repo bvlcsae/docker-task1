@@ -64,9 +64,10 @@ ENV PHP_LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 
 ENV GPG_KEYS CBAF69F173A0FEA4B537F470D66C9593118BCCB6 F38252826ACD957EF380D39F2F7956BC5DA04B5D
 
-ENV PHP_VERSION 5.6.27
+ENV PHP_VERSION 7.2.0
+ENV PHP_URL="https://www.php.net/get/php-7.3.7.tar.xz/from/this/mirror" PHP_ASC_URL="https://www.php.net/get/php-7.3.7.tar.xz.asc/from/this/mirror"
 
-COPY ./php-5.6.27.tar.xz /usr/src/php.tar.xz
+COPY ./php-7.2.0.tar.xz /usr/src/php.tar.xz
 
 RUN set -eux; \
 	\
