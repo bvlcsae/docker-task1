@@ -33,6 +33,8 @@ services:
       - ./config/nginx/cert:/etc/nginx/cert
       - ./config/nginx/log:/var/log/nginx
       - ./wwwroot:/usr/share/nginx/html:rw
+    expose:
+      - 8080
     ports:
       - 80:80
     container_name: my_nginx
