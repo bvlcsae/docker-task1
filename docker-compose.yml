@@ -16,7 +16,7 @@ services:
     volumes:
       - ./config/php72/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./config/php72/php-fpm.d:/usr/local/etc/php-fpm.d
-      - ./wwwroot:/usr/share/nginx/html
+      - ./wwwroot:/usr/share/nginx/html:ro
     restart: always
     container_name: my_php72
     networks:
@@ -31,10 +31,8 @@ services:
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./config/nginx/conf.d:/etc/nginx/conf.d
       - ./config/nginx/cert:/etc/nginx/cert
-      - ./config/nginx/log:/var/log/nginx
-      - ./wwwroot:/usr/share/nginx/html:rw
-    expose:
-      - 8080
+      - ./log/nginx:/var/log/nginx
+      - ./wwwroot:/usr/share/nginx/html:ro
     ports:
       - 80:80
     container_name: my_nginx
