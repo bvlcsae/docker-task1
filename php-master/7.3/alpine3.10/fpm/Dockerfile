@@ -5,7 +5,9 @@
 #
 
 FROM alpine:3.10
+
 RUN echo "https://mirrors.ustc.edu.cn/alpine/v3.10/main" > /etc/apk/repositories
+
 # dependencies required for running "phpize"
 # these get automatically installed and removed by "docker-php-ext-*" (unless they're already installed)
 ENV PHPIZE_DEPS \

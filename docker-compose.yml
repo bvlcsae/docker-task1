@@ -18,8 +18,11 @@ services:
     image: bvlcsae/php:5.6.27
     volumes:
       - ./phptest/conf:/usr/local/etc
+      - ./wwwroot:/var/www/html:rw
     restart: always
     container_name: my_php
+    networks:
+      - default
   nginx:
     image: nginx
     links:
@@ -29,11 +32,14 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/cert:/etc/nginx/cert
-      - ./nginx/html:/usr/share/nginx/html
+      - ./wwwroot:/wwwroot:rw
       - ./nginx/log:/var/log/nginx
     ports:
       - 80:80
     container_name: my_nginx
+    networks:
+      - default
+
   redis:
     image: redis:5.0
     restart: always
@@ -43,3 +49,8 @@ services:
     ports:
       - 6379:6379
     container_name: my_redis
+    networks:
+      - default
+  
+networks:
+  default:
