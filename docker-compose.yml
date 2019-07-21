@@ -1,8 +1,8 @@
 version: "3.7"
 services:
   php56:
-    build: ./build/php56
     image: bvlcsae/php:5.6-fpm
+    build: ./build/php56
     volumes:
       - ./config/php56/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./config/php56/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -38,17 +38,17 @@ services:
     container_name: my_nginx
     networks:
       - default
-  # redis:
-  #   image: redis:5.0
-  #   restart: always
-  #   volumes:
-  #     - ./redis/data:/data
-  #     - ./redis/redis.conf:/etc/redis/redis.conf
-  #   ports:
-  #     - 6379:6379
-  #   container_name: my_redis
-  #   networks:
-  #     - default
+  redis:
+    image: redis:5.0
+    restart: always
+    volumes:
+      - ./data/redis:/data
+      - ./config/redis/redis.conf:/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    container_name: my_redis
+    networks:
+      - default
   
 networks:
   default:
